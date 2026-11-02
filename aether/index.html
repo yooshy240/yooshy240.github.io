@@ -1,10 +1,90 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8">
+<html lang="fr">
+<head>
+<meta charset="utf-8">
 <meta name="robots" content="noindex,nofollow">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Aether</title>
-<meta http-equiv="refresh" content="0; url=https://bm8pfx7fn7mq.hostc.app/">
-<script>location.replace("https://bm8pfx7fn7mq.hostc.app/");</script>
-</head><body style="background:#0b0f17;color:#ccc;font-family:sans-serif;text-align:center;padding-top:30vh">
-<p>Redirection vers le dashboard Aether… <a style="color:#7cf" href="https://bm8pfx7fn7mq.hostc.app/">ouvrir</a></p>
-</body></html>
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0d">
+<meta name="color-scheme" content="dark">
+<title>Aether — Tableau de bord PAPER</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="wordmark">AETHER</span>
+    <span class="badge-paper" title="Portefeuille simulé : aucun ordre réel n'est passé">PAPER — argent fictif</span>
+  </div>
+  <div class="status" id="status" aria-live="polite">
+    <span class="dot" id="statusDot"></span><span id="statusText">chargement…</span>
+  </div>
+</header>
+<div class="gate-banner" id="gateBanner" role="alert" hidden></div>
+
+<section class="kpis" aria-label="Résumé">
+  <div class="kpi kpi-main">
+    <div class="kpi-label">Équité paper</div>
+    <div class="kpi-value"><span id="kEquity" data-fmt="money">—</span> <small>USDT fictifs</small></div>
+  </div>
+  <div class="kpi"><div class="kpi-label">PnL du jour</div><div class="kpi-value" id="kToday">—</div><div class="kpi-sub" id="kTodayPct"></div></div>
+  <div class="kpi"><div class="kpi-label">PnL depuis le départ</div><div class="kpi-value" id="kTotal">—</div><div class="kpi-sub" id="kTotalPct"></div></div>
+  <div class="kpi"><div class="kpi-label">Positions ouvertes</div><div class="kpi-value" id="kOpen">—</div><div class="kpi-sub" id="kOpenMax"></div></div>
+  <div class="kpi">
+    <div class="kpi-label">Exposition</div>
+    <div class="kpi-value" id="kExpo">—</div>
+    <div class="bar" aria-hidden="true"><span id="kExpoBar"></span></div>
+    <div class="kpi-sub" id="kExpoCap"></div>
+  </div>
+  <div class="kpi"><div class="kpi-label">Arrêt perte journalière</div><div class="kpi-value" id="kHalt">—</div><div class="kpi-sub" id="kHaltSub"></div></div>
+</section>
+
+<nav class="tabs" id="tabs" aria-label="Sections">
+  <button data-target="c-equity" class="active">Équité</button>
+  <button data-target="c-positions">Positions</button>
+  <button data-target="c-trades">Trades</button>
+  <button data-target="c-alerts">Alertes</button>
+  <button data-target="c-confidence">Confiance</button>
+</nav>
+
+<main class="cards" id="cards">
+  <article class="card" id="c-equity">
+    <h2>Équité <span class="muted" id="eqMeta"></span></h2>
+    <div class="chart" id="equityChart"></div>
+    <div class="legend" id="eqLegend"></div>
+  </article>
+
+  <article class="card" id="c-positions">
+    <h2>Positions ouvertes <span class="muted" id="posMeta"></span></h2>
+    <div id="positions"></div>
+  </article>
+
+  <article class="card" id="c-trades">
+    <h2>Trades clôturés <span class="muted" id="trMeta"></span></h2>
+    <div class="split">
+      <div class="pill win"><span>Gagnants</span><b id="trWin">0</b><em id="trWinPnl"></em></div>
+      <div class="pill loss"><span>Perdants</span><b id="trLoss">0</b><em id="trLossPnl"></em></div>
+    </div>
+    <div id="trades"></div>
+    <p class="ref" id="btRef"></p>
+  </article>
+
+  <article class="card" id="c-alerts">
+    <h2>Dernières alertes <span class="muted" id="alMeta"></span></h2>
+    <div id="alerts" class="list"></div>
+  </article>
+
+  <article class="card" id="c-confidence">
+    <h2>Confiance <span class="muted" id="cfMeta"></span></h2>
+    <div class="radar-wrap"><div id="radar"></div></div>
+    <div class="chips" id="cfAssets"></div>
+    <p class="ref" id="cfNote"></p>
+  </article>
+</main>
+
+<footer class="foot">
+  Lecture seule · données locales (aether.db, dashboard_state.json) · instantané chiffré publié à chaque passage horaire · aucun ordre réel
+</footer>
+<script src="boot.js"></script>
+</body>
+</html>
